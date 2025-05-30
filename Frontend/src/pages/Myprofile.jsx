@@ -15,7 +15,7 @@ const Myprofile = () => {
       </h2>
 
       <div className="w-full max-w-3xl bg-zinc-900 p-6 rounded-xl shadow-lg">
-        <UserProfile userId={user.email} />
+        <UserProfile userId={user.email}/>
       </div>
     </main>
   );

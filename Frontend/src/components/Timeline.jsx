@@ -4,7 +4,7 @@ const data = [
   {
     step: "Step -> 1",
     title: "Initial Assembly",
-    content: "NEURA Robotics has closed its second round of financing, securing €50 million in capital from an all-European investor consortium.",
+    content: "Mounting of Wheels, Arduino, Driver Shield and Motors on the chasis",
     link: "step1",
   },
   {
@@ -16,13 +16,13 @@ const data = [
   {
     step: "Step -> 3",
     title: "The future",
-    content: "With 4NE-1, we are developing a new kind of robot. A robot that supports any kind of task...",
+    content: "Uploading Code and installing Battery Pack",
     link: "step3",
   },
   {
     step: "Step -> 4",
     title: "The next level",
-    content: "The introduction of a new robot generation started here.",
+    content: "Uploading Code and installing Battery Pack",
     link: "step4",
   },
 ];
