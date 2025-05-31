@@ -3,12 +3,12 @@ import VideoComponent from "../components/VideoComponent";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const steps = [
-  { id: 1, text: "Take a motor and solder it with two wires.", emoji: "⚙️" },
-  { id: 2, text: "Repeat the process with four more motors.", emoji: "🔁" },
-  { id: 3, text: "Mount the motors on the chassis using a hot glue gun.", emoji: "🛠️" },
-  { id: 4, text: "Attach the wheels to the motors.", emoji: "🚗" },
-  { id: 5, text: "Secure the Arduino onto the chassis using screws.", emoji: "🔩" },
-  { id: 6, text: "Connect the Driver Shield to the Arduino.", emoji: "🔌" },
+  { id: 1, text: "Install the battery slots on the chassis using DST.", emoji: "⚙️" },
+  { id: 2, text: "Connect the positive and negative terminals to their respective terminals on the Arduino.", emoji: "🔁" },
+  { id: 3, text: "Now put the Lithium batteries in the slots.", emoji: "🛠️" },
+  { id: 4, text: "Now test the bot on the track.", emoji: "🚗" },
+  // { id: 5, text: "Secure the Arduino onto the chassis using screws.", emoji: "🔩" },
+  // { id: 6, text: "Connect the Driver Shield to the Arduino.", emoji: "🔌" },
 ];
 
 const Step4 = () => {
@@ -46,11 +46,11 @@ const Step4 = () => {
         <div className="w-full max-w-5xl animate-fade-in delay-500 transition duration-1000">
           <div className="relative group overflow-hidden rounded-2xl shadow-2xl border border-gray-700 hover:shadow-purple-400 transition-shadow duration-500">
             <VideoComponent
-              videoId="1"
+              videoId="4"
               userId={user.email}
-              source={"/videos/Step1.mp4"}
+              source={"/videos/Step4.mp4"}
             />
-            <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
+            <div className="absolute inset-0 bg-black opacity-0 pointer-events-none group-hover:opacity-30 transition-opacity duration-500"></div>
           </div>
         </div>
       ) : (

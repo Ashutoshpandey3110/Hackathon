@@ -9,6 +9,7 @@ import Step1 from "./pages/Step1"
 import Step2 from "./pages/Step2"
 import Step3 from "./pages/Step3"
 import Step4 from "./pages/Step4"
+import Footer from "./components/Footer"
 
 const App = () => {
 
@@ -25,9 +26,8 @@ const App = () => {
         <Route path = "/line-track/step2" element={<Step2/>}/> 
         <Route path = "/line-track/step3" element={<Step3/>}/> 
         <Route path = "/line-track/step4" element={<Step4/>}/>      
-
       </Routes>
-
+      <Footer/>
         
     </div>
   )

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const VideoComponent = ({ videoId, userId, source }) => {
+const VideoComponent = ({ videoId, userId, source, onComplete }) => {
   const [completed, setCompleted] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
@@ -27,6 +27,7 @@ const VideoComponent = ({ videoId, userId, source }) => {
         setCompleted(newStatus);
         if (newStatus) {
           setShowPopup(true);
+          if (onComplete) onComplete(); // ✅ Call parent function
           setTimeout(() => setShowPopup(false), 2500);
         }
       } else {
@@ -38,9 +39,7 @@ const VideoComponent = ({ videoId, userId, source }) => {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-center bg-black text-white px-4 py-8">
-      
-      {/* Toast popup */}
+    <div className="flex flex-col items-center w-full">
       {showPopup && (
         <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-xl shadow-lg text-lg font-semibold z-50 animate-bounce">
           🎉 Congratulations on completing the video!

@@ -16,6 +16,7 @@ const Step1 = () => {
 
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white px-6 py-10 space-y-12">
+      
       {/* Header Section */}
       <div className="flex flex-col justify-center items-center gap-6 text-center">
         <h1 className="text-5xl sm:text-6xl font-extrabold bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 text-transparent bg-clip-text animate-fade-in transition duration-1000">
@@ -50,7 +51,21 @@ const Step1 = () => {
               userId={user.email}
               source={"/videos/Step1.mp4"}
             />
-            <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
+            {/* Fix: Prevent this overlay from blocking clicks */}
+            <div className="absolute inset-0 bg-black opacity-0 pointer-events-none group-hover:opacity-30 transition-opacity duration-500"></div>
+          </div>
+
+          {/* Informative text below video */}
+          <p className="mt-6 text-lg text-gray-300 text-center max-w-3xl">
+            A line follower robot is an autonomous vehicle that detects and follows a line drawn on the floor using infrared (IR) sensors. It is a great beginner project to understand sensors, microcontrollers, and motor control systems in robotics.
+          </p>
+
+          {/* Mark as Completed */}
+          <div className="mt-6 flex justify-center items-center space-x-3">
+            <input type="checkbox" id="markCompleted" className="w-5 h-5" />
+            <label htmlFor="markCompleted" className="text-lg text-white">
+              Mark As Completed
+            </label>
           </div>
         </div>
       ) : (

@@ -46,11 +46,11 @@ const Step2 = () => {
         <div className="w-full max-w-5xl animate-fade-in delay-500 transition duration-1000">
           <div className="relative group overflow-hidden rounded-2xl shadow-2xl border border-gray-700 hover:shadow-purple-400 transition-shadow duration-500">
             <VideoComponent
-              videoId="1"
+              videoId="2"
               userId={user.email}
-              source={"/videos/Step1.mp4"}
+              source={"/videos/Step2.mp4"}
             />
-            <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
+            <div className="absolute inset-0 bg-black opacity-0 pointer-events-none group-hover:opacity-30 transition-opacity duration-500"></div>
           </div>
         </div>
       ) : (

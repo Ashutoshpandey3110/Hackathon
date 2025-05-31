@@ -1,18 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import VideoComponent from "../components/VideoComponent";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const steps = [
-  { id: 1, text: "Take a motor and solder it with two wires.", emoji: "⚙️" },
-  { id: 2, text: "Repeat the process with four more motors.", emoji: "🔁" },
-  { id: 3, text: "Mount the motors on the chassis using a hot glue gun.", emoji: "🛠️" },
-  { id: 4, text: "Attach the wheels to the motors.", emoji: "🚗" },
-  { id: 5, text: "Secure the Arduino onto the chassis using screws.", emoji: "🔩" },
-  { id: 6, text: "Connect the Driver Shield to the Arduino.", emoji: "🔌" },
+  { id: 1, text: "Connect the Arduino with a laptop.", emoji: "⚙️" },
+  { id: 2, text: "Now open Arduino IDE App in laptop.", emoji: "🔁" },
+  { id: 3, text: "Write down the code provided below.", emoji: "🛠️" },
+  { id: 4, text: "Select the Arduino from tools as shown.", emoji: "🚗" },
+  { id: 5, text: "Upload the program until it's shown uploaded on the bottom right corner.", emoji: "🔩" },
 ];
 
 const Step3 = () => {
   const { loginWithRedirect, user, isAuthenticated } = useAuth0();
+  const [completed, setCompleted] = useState(false);
+
+  const handleComplete = () => {
+    setCompleted(true);
+  };
 
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white px-6 py-10 space-y-12">
@@ -41,17 +45,36 @@ const Step3 = () => {
         </ul>
       </div>
 
-      {/* Video Section */}
+      {/* Video and Download Side-by-Side */}
       {isAuthenticated ? (
-        <div className="w-full max-w-5xl animate-fade-in delay-500 transition duration-1000">
-          <div className="relative group overflow-hidden rounded-2xl shadow-2xl border border-gray-700 hover:shadow-purple-400 transition-shadow duration-500">
+        <div className="w-full max-w-6xl flex flex-col lg:flex-row items-center justify-center gap-8 mt-12 animate-fade-in delay-500 transition duration-1000">
+          {/* Video */}
+          <div className="flex-1 w-full">
             <VideoComponent
-              videoId="1"
+              videoId="3"
               userId={user.email}
-              source={"/videos/Step1.mp4"}
+              source={"/videos/Step3.mp4"}
+              onComplete={handleComplete}
             />
-            <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
           </div>
+
+          {/* Download Box */}
+          {completed && (
+            <div className="flex-1 w-full bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 p-1 rounded-2xl shadow-2xl animate-fade-in transition duration-700">
+              <div className="bg-gray-900 p-6 rounded-2xl text-center">
+                <h3 className="text-2xl font-bold text-white mb-4 animate-pulse">
+                  🎉 Download your code here
+                </h3>
+                <a
+                  href="\public\code\codeStep3.txt"
+                  download
+                  className="inline-block px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-transform transform hover:scale-105 shadow-md"
+                >
+                  ⬇️ Download Arduino Code
+                </a>
+              </div>
+            </div>
+          )}
         </div>
       ) : (
         <div className="text-center space-y-6 animate-fade-in delay-300 transition duration-1000">
