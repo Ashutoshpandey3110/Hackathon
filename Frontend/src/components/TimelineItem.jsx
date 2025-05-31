@@ -20,7 +20,7 @@ export default function TimelineItem({ step, title, content, link, isLeft }) {
           isLeft ? "text-right pr-10" : "text-left pl-10"
         } hover:scale-[1.02] bg-gray-800 hover:bg-gray-700`}
       >
-        <div className="text-sm font-semibold text-blue-400">{step}</div>
+        <div className="text-2xl font-bold text-blue-400">{step}</div>
         <div className="text-2xl font-bold text-white">{title}</div>
         <div className="text-md text-gray-300 mt-2">{content}</div>
         <span className="mt-3 inline-block text-blue-300 hover:text-blue-400 font-semibold transition hover:underline">
