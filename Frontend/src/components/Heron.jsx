@@ -23,8 +23,8 @@ const Heron = () => {
 
                   </div>
 
-                  <button className='h-8 px-6 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-lg font-medium text-nowrap hove:opacity-70 tranisition-all duration-300' >
-                    Play Now
+                  <button className="px-6 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl shadow hover:scale-105 transition-all duration-300" >
+                    Explore Now
                   </button>
 
                   <div className='flex items-center gap-5 text-3xl font-extrabold text-gray-200'>

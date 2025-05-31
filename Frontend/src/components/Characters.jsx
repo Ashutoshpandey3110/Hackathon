@@ -41,7 +41,7 @@ const Characters = () => {
         <div className='relative z-10 pt-6 text-center'>
             <h1 className='text-5xl font-bold tracking-widest
             md:-mb-14 mb-8 ' style={{textShadow : "0 0 10px rgba(255 , 255 , 255 , 0.7)"}}>
-                FIGHTERS
+                FIGHTERS BOTS
             </h1>
         </div>
 

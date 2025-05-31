@@ -1,130 +1,162 @@
-import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
-import 'boxicons/css/boxicons.min.css'
-import { useAuth0 } from '@auth0/auth0-react'
+import React, { useState, useRef } from 'react'; 
+import { Link } from 'react-router-dom'; 
+import 'boxicons/css/boxicons.min.css'; 
+import { useAuth0 } from '@auth0/auth0-react'; 
+ 
+const Navbar = () => { 
+  const { loginWithRedirect, user, isAuthenticated, logout } = useAuth0(); 
+ 
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false); 
+  const [isStudentDropdownOpen, setStudentDropdownOpen] = useState(false); 
+  const [isDashboardDropdownOpen, setDashboardDropdownOpen] = useState(false); 
+ 
+  const studentTimeout = useRef(null); 
+  const dashboardTimeout = useRef(null); 
+ 
+  const handleMouseEnter = (dropdownSetter, timeoutRef) => { 
+    clearTimeout(timeoutRef.current); 
+    dropdownSetter(true); 
+  }; 
+ 
+  const handleMouseLeave = (dropdownSetter, timeoutRef) => { 
+    timeoutRef.current = setTimeout(() => { 
+      dropdownSetter(false); 
+    }, 300); 
+  }; 
+ 
+  // Bot data array for student dropdown 
+  const studentBots = [ 
+    { name: "Line Tracker Bot", img: "/images/Line_follower_robot.jpg", link: "/line-tracker" }, 
+    { name: "Spidy Bot", img: "/images/newbot2.webp", link: "#" }, 
+    { name: "Obstacle Avoider Bot", img: "/images/bot.avif", link: "#" }, 
+  ]; 
+ 
+  return ( 
+    <> 
+      <header className="bg-black py-4 px-8 flex justify-evenly items-center sticky top-0 z-50 w-full border-b-[1px] border-purple-500 shadow-md"> 
+        {/* Logo + BotFoge */}
+        <Link to = "/">
 
-
-const Navbar = () => {
-  const { loginWithRedirect , user, isLoading, isAuthenticated , logout } = useAuth0();
-
-  console.log(user , "printing user info");
-
-  //  if (isLoading) {
-  //   return <div>Loading ...</div>;
-  // }
-
-  return (
-    <header className='bg-black py-1 px-7 flex justify-between items-center sticky top-0 z-50 w-full border-b-[0.3px] border-[#babaff]'>
-      
-      {/* left section */}
-      <div className='flex lg:gap-14 gap-4 items-center'>
-        <Link to= '/'>
-
-        <img className='md:w-16 w-12' src='\images\logo.png'
-        alt='logo-img'></img>
-
-        </Link>
+        <div className="flex items-center gap-4 text-white"> 
+          <i className="bx bx-bot text-4xl text-purple-400"></i> 
+          <span className="text-2xl font-extrabold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent tracking-wide">BOTFoge</span> 
+        </div> 
         
-        <div className=' md:flex gap-5 items-center'>
-          <button className='h-8 px-6 bg-gradient-to-r
-           from-purple-500 to-indigo-600 rounded-lg
-            font-medium text-nowrap hove:opacity-70 
-            tranisition-all duration-300' >
-            Play Now
-          </button>
-
-          <div>
-            <Link to = '/about'>
-              <p>About</p>
-            </Link>
-          </div>
-
-          <div className='flex gap-1 justify-center items-center group relative '>
-
-             <span>Student</span>
-
-             <div>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round"
-               class="lucide lucide-chevron-down-icon lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg>
-             </div>
-
-             <div className='group-hover:block hidden absolute dropdown-menu top-6 left-16 w-[50rem]'>
-
-                <div className='flex  gap-2 max-w-full py-3 px-5 bg-slate-100 text-gray-500 rounded'>
-                    
-                    <div className='flex flex-col gap-3 justify-center'>
-
-                      <Link to='/line-tracker'>
-
-                      <div>
-                        <p className='font-bold text-1xl text-center'>Line Tracker Bot</p>
-
-                        <img
-                         src="public\images\Line_follower_robot.jpg" alt="" />
-                      </div>
-                      
-                      </Link>
-
-                    </div>
-
-                     <div className='flex flex-col gap-3 justify-center'>
-
-                      <div>
-                        <p className='font-bold text-1xl text-center'>Line Tracker Bot</p>
-
-                        <img
-                         src="public\images\Line_follower_robot.jpg" alt="" />
-                      </div>
-
-                    </div>
-
-                     <div className='flex flex-col gap-3 justify-center'>
-
-                      <div>
-                        <p className='font-bold text-1xl text-center'>Line Tracker Bot</p>
-
-                        <img
-                         src="public\images\Line_follower_robot.jpg" alt="" />
-                      </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* right side */}
-
-      <nav className='flex md:gap-4 items-center'>
-
-        {isAuthenticated && <h2 className='animation-pulse'>Hello {user.name}</h2>}
+        </Link> 
         
-        {isAuthenticated && <button onClick={(e) => logout()}>Logout</button> }
+ 
+        {/* Main Nav (Desktop) */} 
+        <div className="hidden md:flex items-center gap-8 text-white text-lg font-medium"> 
+          {/* <button className="px-6 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl shadow hover:scale-105 transition-all duration-300"> 
+            Explore Now
+          </button>  */}
 
-        <div className='group relative'>
-          <Link to= '/'>
-                < i class='bx  bx-user-circle' ></i> DashBoard 
-          </Link>
+           {/* Student Dropdown */} 
+          <div 
+            className="relative group" 
+            onMouseEnter={() => handleMouseEnter(setStudentDropdownOpen, studentTimeout)} 
+            onMouseLeave={() => handleMouseLeave(setStudentDropdownOpen, studentTimeout)} 
+          > 
+            <div className="flex items-center cursor-pointer gap-1"> 
+              <span>Student</span> 
+              <i className="bx bx-chevron-down"></i> 
+            </div> 
+            {isStudentDropdownOpen && ( 
+              <div className="absolute top-8 left-0 bg-white text-black px-4 py-3 rounded-xl shadow-lg flex gap-4 z-50 transition-all duration-300"> 
+                {studentBots.map((bot, idx) => ( 
+                  <Link to={bot.link} key={idx} className="text-center w-36 hover:scale-105 transition"> 
+                    <img src={bot.img} alt={bot.name} className="rounded-lg mb-2" /> 
+                    <p className="font-semibold">{bot.name}</p> 
+                  </Link> 
+                ))} 
+              </div> 
+            )} 
+          </div> 
+ 
+          <Link to="/about" className="hover:text-purple-400 transition">About</Link> 
 
-           <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4'>
-                <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded'>
-                  {isAuthenticated && <Link to='/myProfile'><p className='cursor-pointer hover:text-black'>MyProfile</p></Link> }          
-                  <p className='cursor-pointer hover:text-black'>Orders</p>
-                  <button  onClick={(e) => loginWithRedirect()}>LogIn</button>
-
-                </div>
-            </div>
-
-        </div>
+          <Link to="/contactus" className="hover:text-purple-400 transition">Contact US</Link> 
           
-      </nav>
-
-    </header>
-  )
-}
-
-export default Navbar
+          {/* Dashboard Dropdown */} 
+          <div 
+            className="relative group" 
+            onMouseEnter={() => handleMouseEnter(setDashboardDropdownOpen, dashboardTimeout)} 
+            onMouseLeave={() => handleMouseLeave(setDashboardDropdownOpen, dashboardTimeout)} 
+          > 
+            <div className="flex items-center cursor-pointer gap-1"> 
+              <i className="bx bx-user-circle text-xl"></i> 
+              <span>Dashboard</span> 
+            </div> 
+            {isDashboardDropdownOpen && ( 
+              <div className="absolute top-8 right-0 bg-white text-black px-4 py-3 rounded-xl shadow-lg w-48 z-50"> 
+                {isAuthenticated && <Link to="/myProfile" className="block hover:text-purple-500">My Profile</Link>} 
+                <p className="mt-2">Orders</p> 
+                {!isAuthenticated && ( 
+                  <button onClick={loginWithRedirect} className="mt-2 hover:text-purple-500">Login</button> 
+                )} 
+              </div> 
+            )} 
+          </div> 
+ 
+          {/* Auth Greeting / Logout */} 
+          {isAuthenticated && ( 
+            <> 
+              <span className="text-purple-400">Hello {user.name}</span> 
+              <button onClick={logout} className="hover:text-red-400 transition">Logout</button> 
+            </> 
+          )} 
+        </div> 
+ 
+        {/* Mobile Hamburger */} 
+        <div className="md:hidden text-white text-3xl cursor-pointer" onClick={() => setMobileMenuOpen(true)}> 
+          <i className='bx bx-menu'></i> 
+        </div> 
+      </header> 
+ 
+      {/* Overlay */} 
+      {isMobileMenuOpen && ( 
+        <div 
+          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 backdrop-blur-sm z-40" 
+          onClick={() => setMobileMenuOpen(false)} 
+        /> 
+      )} 
+ 
+      {/* Mobile Drawer */} 
+      <div className={`fixed top-0 right-0 h-full w-72 bg-black text-white z-50 transform transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}> 
+        <div className="flex justify-end p-4"> 
+          <i className="bx bx-x text-3xl cursor-pointer" onClick={() => setMobileMenuOpen(false)}></i> 
+        </div> 
+ 
+        <div className="flex flex-col gap-6 px-6 text-lg"> 
+          <button className="h-10 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-lg font-medium">Play Now</button> 
+          <Link to="/about" onClick={() => setMobileMenuOpen(false)}>About</Link> 
+ 
+          <div className="relative"> 
+            <div className="flex items-center justify-between" onClick={() => setStudentDropdownOpen(!isStudentDropdownOpen)}> 
+              <span>Student</span> 
+              <i className={`bx ${isStudentDropdownOpen ? 'bx-chevron-up' : 'bx-chevron-down'}`}></i> 
+            </div> 
+            {isStudentDropdownOpen && ( 
+              <div className="mt-3 flex flex-col gap-2 bg-slate-200 text-black p-3 rounded"> 
+                {studentBots.map((bot, idx) => ( 
+                  <Link to={bot.link} key={idx} onClick={() => setMobileMenuOpen(false)}> 
+                    <p className="font-bold">{bot.name}</p> 
+                  </Link> 
+                ))} 
+              </div> 
+            )} 
+          </div> 
+ 
+          {isAuthenticated && <p>Hello {user.name}</p>} 
+          {isAuthenticated 
+            ? <button onClick={() => { logout(); setMobileMenuOpen(false); }}>Logout</button> 
+            : <button onClick={() => { loginWithRedirect(); setMobileMenuOpen(false); }}>Login</button> 
+          } 
+          <Link to="/myProfile" onClick={() => setMobileMenuOpen(false)}>My Profile</Link> 
+        </div> 
+      </div> 
+    </> 
+  ); 
+}; 
+ 
+export default Navbar;
